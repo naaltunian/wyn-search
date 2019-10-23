@@ -14,6 +14,10 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     personalSite: String,
+    bio: {
+        type: String,
+        required: true
+    },
     dateCreated: {
         type: Date,
         default: Date.now
