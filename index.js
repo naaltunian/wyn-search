@@ -1,6 +1,7 @@
 const express = require('express');
 // const { ApolloServer } = require('apollo-server-express');
 const mongoose = require('mongoose');
+const User = require('./Models/User');
 require('dotenv').config();
 
 const app = express();
