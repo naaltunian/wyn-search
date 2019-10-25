@@ -3,22 +3,23 @@ const { gql } = require('apollo-server-express');
 exports.typeDefs = gql`
 # queries
 type Query {
-    User(_id: String!): User
-    # getAllUsers: [User!]!
+    getUser(_id: String!): User!
+    getAllUsers: [User!]!
 }
 
 # mutations
-# type Mutation {
-#     # createUser(userInput: UserInput!) User
-#     # deleteUser(_id: String!): User
-# }
+type Mutation {
+    createUser(userInput: UserInput!): User!
+    updateUser(_id: String!, userInput: UserInput!): User!
+    deleteUser(_id: String!): User!
+}
 
 # types
 type User {
     _id: ID
     name: String!
     email: String!
-    githubUserName: String!
+    githubUsername: String!
     bio: String!
     personalSite: String
     dateCreated: String!
@@ -26,11 +27,11 @@ type User {
 }
 
 # inputs
-# type UserInput {
-#     name: String!
-#     email: String!
-#     githubUserName: String!
-#     bio: String!
-#     personalSite: String
-# }
+input UserInput {
+    name: String!
+    email: String!
+    githubUsername: String!
+    bio: String!
+    personalSite: String
+}
 `
