@@ -9,7 +9,8 @@ type Query {
 
 # mutations
 type Mutation {
-    createUser(userInput: UserInput!): User!
+    createUser(userInput: UserInput!): String!
+    login(email: String!, password: String!): String!
     updateUser(_id: String!, userInput: UserInput!): User!
     deleteUser(_id: String!): User!
 }
