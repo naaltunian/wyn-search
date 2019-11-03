@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 exports.resolvers = {
     Query: {
         getUser: async (_, { _id }, { User }) => {
@@ -11,14 +13,26 @@ exports.resolvers = {
     },
 
     Mutation: {
-        createUser: async (_, { userInput: { name, email, githubUsername, bio, personalSite }}, { User }) => {
+        createUser: async (_, { userInput: { name, email, password, githubUsername, bio, skills, personalSite }}, { User }) => {
+            const user = await User.findOne({ email });
+            if(user) {
+                throw new Error("User already exists");
+            }
             const newUser = await new User({
                 name,
                 email,
                 githubUsername,
                 bio,
+                skills,
                 personalSite
-            }).save();
+            });
+            bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(password, salt, (err, hash) => {
+                    if(err) throw err;
+                    newUser.password = salt;
+                    newUser.save();
+                });
+            });
             return newUser;
         },
         updateUser: async (_, { _id, userInput: { name, email, githubUsername, bio, personalSite }}, { User }) => {

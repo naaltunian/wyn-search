@@ -18,9 +18,11 @@ type Mutation {
 type User {
     _id: ID
     name: String!
+    password: String!
     email: String!
     githubUsername: String!
     bio: String!
+    skills: [SkillsEnum]
     personalSite: String
     dateCreated: String!
     isAdmin: Boolean
@@ -29,9 +31,26 @@ type User {
 # inputs
 input UserInput {
     name: String!
+    password: String!
     email: String!
     githubUsername: String!
     bio: String!
+    skills: [SkillsEnum]
     personalSite: String
+}
+
+#  enums
+
+enum SkillsEnum {
+    NODEJS
+    REACT
+    JAVASCRIPT
+    EXPRESS
+    RUBY
+    RAILS
+    GRAPHQL
+    HTML
+    CSS
+    PYTHON
 }
 `
