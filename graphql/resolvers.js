@@ -37,7 +37,6 @@ exports.resolvers = {
         },
         updateUser: async (_, { _id, userInput: { name, email, githubUsername, bio, personalSite }}, { User }) => {
             const user = await User.findByIdAndUpdate({ _id }, { $set: { name, email, githubUsername, bio, personalSite }}, { new:true});
-            console.log(user)
             return user;
             
         },
