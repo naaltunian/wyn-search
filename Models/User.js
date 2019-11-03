@@ -10,6 +10,10 @@ const UserSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    password: {
+        type: String,
+        required: true,
+    },
     githubUsername: {
         type: String,
         required: true
@@ -19,6 +23,12 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    // skills: [
+    //     {
+    //         type: String,
+    //         enum: ["Node.js", "Javascript", "Express", "Ruby", "Rails", "React", "Python", "GraphQL", "HTML", "CSS"]
+    //     }
+    // ],
     dateCreated: {
         type: Date,
         default: Date.now

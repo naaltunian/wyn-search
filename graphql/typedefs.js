@@ -18,6 +18,7 @@ type Mutation {
 type User {
     _id: ID
     name: String!
+    password: String!
     email: String!
     githubUsername: String!
     bio: String!
@@ -29,6 +30,7 @@ type User {
 # inputs
 input UserInput {
     name: String!
+    password: String!
     email: String!
     githubUsername: String!
     bio: String!
