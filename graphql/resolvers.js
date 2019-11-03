@@ -13,8 +13,8 @@ exports.resolvers = {
     },
 
     Mutation: {
-        createUser: async (_, { userInput: { name, email, password, githubUsername, bio, personalSite }}, { User }) => {
-            const user = await User.findOne({ name });
+        createUser: async (_, { userInput: { name, email, password, githubUsername, bio, skills, personalSite }}, { User }) => {
+            const user = await User.findOne({ email });
             if(user) {
                 throw new Error("User already exists");
             }
@@ -23,6 +23,7 @@ exports.resolvers = {
                 email,
                 githubUsername,
                 bio,
+                skills,
                 personalSite
             });
             bcrypt.genSalt(10, (err, salt) => {

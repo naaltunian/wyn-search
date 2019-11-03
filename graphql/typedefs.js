@@ -22,6 +22,7 @@ type User {
     email: String!
     githubUsername: String!
     bio: String!
+    skills: [SkillsEnum]
     personalSite: String
     dateCreated: String!
     isAdmin: Boolean
@@ -34,6 +35,22 @@ input UserInput {
     email: String!
     githubUsername: String!
     bio: String!
+    skills: [SkillsEnum]
     personalSite: String
+}
+
+#  enums
+
+enum SkillsEnum {
+    NODEJS
+    REACT
+    JAVASCRIPT
+    EXPRESS
+    RUBY
+    RAILS
+    GRAPHQL
+    HTML
+    CSS
+    PYTHON
 }
 `

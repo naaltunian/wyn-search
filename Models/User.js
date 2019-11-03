@@ -23,12 +23,13 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    // skills: [
-    //     {
-    //         type: String,
-    //         enum: ["Node.js", "Javascript", "Express", "Ruby", "Rails", "React", "Python", "GraphQL", "HTML", "CSS"]
-    //     }
-    // ],
+    skills: [
+        {
+            type: String
+            // Refactor to match GQL schema to below
+            // enum: ["Node.js", "Javascript", "Express", "Ruby", "Rails", "React", "Python", "GraphQL", "HTML", "CSS"]
+        }
+    ],
     dateCreated: {
         type: Date,
         default: Date.now
