@@ -1,10 +1,9 @@
 const bcrypt = require('bcrypt');
-const jsonWebToken = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 exports.resolvers = {
     Query: {
-
         // user
         getUser: async (_, { _id }, { User }) => {
             const user = await User.findOne({ _id });
@@ -18,7 +17,6 @@ exports.resolvers = {
     },
 
     Mutation: {
-
         // user
         createUser: async (_, { userInput: { name, email, password, githubUsername, bio, skills, personalSite }}, { User }) => {
             const user = await User.findOne({ email });
@@ -32,13 +30,12 @@ exports.resolvers = {
                 personalSite,
                 password: await bcrypt.hash(password, 10)
             }).save();
-            return jsonWebToken.sign({ email }, process.env.SECRET, { expiresIn: "7d" });
+            return jwt.sign({ newUser }, process.env.SECRET, { expiresIn: "7d" });
         },
 
         updateUser: async (_, { _id, userInput: { name, email, githubUsername, bio, personalSite }}, { User }) => {
             const user = await User.findByIdAndUpdate({ _id }, { $set: { name, email, githubUsername, bio, personalSite }}, { new:true});
             return user;
-            
         },
         deleteUser: async (_, { _id }, { User }) => {
             const deletedUser = await User.findOneAndDelete({ _id });
@@ -52,7 +49,7 @@ exports.resolvers = {
             const isValidPassword = await bcrypt.compare(password, user.password);
             if(!isValidPassword) throw new Error("Invalid password");
 
-            return jsonWebToken.sign({ email }, process.env.SECRET, { expiresIn: "7d" });
+            return jwt.sign({ user }, process.env.SECRET, { expiresIn: "7d" });
         },
     }
 }
