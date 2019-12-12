@@ -3,14 +3,26 @@ const cors = require('cors');
 const { ApolloServer } = require('apollo-server-express');
 const { typeDefs } = require('./graphql/typedefs');
 const { resolvers } = require('./graphql/resolvers');
+const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-// models
-const User = require('./Models/User');
-
 const app = express();
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+
+// JWT token middleware
+app.use(async (req, res, next) => {
+    const token = req.headers['authorization'];
+    if(token) {
+        try {
+            const currentUser = await jwt.verify(token, process.env.SECRET);
+            req.currentUser = currentUser;
+        } catch(err) {
+            console.log(err)
+        }
+    }
+    next();
+})
 
 // database connection
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -21,8 +33,8 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: {
-        User
+    context: ({currentUser}) => {
+        currentUser
     }
 });
 // apply graphQL middleware
