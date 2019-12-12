@@ -22,7 +22,7 @@ type User {
     password: String!
     email: String!
     githubUsername: String!
-    bio: String!
+    bio: String
     skills: [SkillsEnum]
     personalSite: String
     dateCreated: String!
@@ -35,7 +35,7 @@ input UserInput {
     password: String!
     email: String!
     githubUsername: String!
-    bio: String!
+    bio: String
     skills: [SkillsEnum]
     personalSite: String
 }

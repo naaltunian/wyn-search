@@ -20,8 +20,7 @@ const UserSchema = new mongoose.Schema({
     },
     personalSite: String,
     bio: {
-        type: String,
-        required: true
+        type: String
     },
     skills: [
         {
