@@ -1,20 +1,25 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React, { UseContext } from 'react';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import Navbar from './Components/Navbar';
-import Signup from './Components/Authentication/Signup';
+import Home from './Components/Students/Home';
+import SignUp from './Components/Authentication/SignUp';
+import Login from './Components/Authentication/Login';
+import UserContext from './Contexts/UserContext';
+import { PromiseProvider } from 'mongoose';
 
 const App = () => {
   return (
     <BrowserRouter>
-      <React.Fragment>
-        <Navbar />
-        <Signup />
-        {/* <div>
-          <Switch>
-            <Route path="/test" component={Test} />
-          </Switch>
-        </div> */}
-      </React.Fragment>
+      <>
+        <UserContext.Provider value={"hello"}>
+          <Navbar />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/signup" component={SignUp} />
+              <Route path="/login" component={Login} />
+            </Switch> 
+        </UserContext.Provider>
+      </>
     </BrowserRouter>
   );
 }

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import UserContext from '../../Contexts/UserContext'
 
 const Login = () => {
+    const message = useContext(UserContext)
     return(
         <div>
-            Login Page
+            {message}
         </div>
     )
 }
