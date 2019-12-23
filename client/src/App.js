@@ -1,21 +1,29 @@
-import React, { UseContext } from 'react';
+import React, { useContext, useReducer } from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import reducer from './reducer';
 import Navbar from './Components/Navbar';
+import Profile from './Components/Profile/Profile';
 import Home from './Components/Students/Home';
 import SignUp from './Components/Authentication/SignUp';
 import Login from './Components/Authentication/Login';
 import UserContext from './Contexts/UserContext';
-import { PromiseProvider } from 'mongoose';
+
+
 
 const App = () => {
+  // const isAuth = useContext(UserContext);
+  const initialState = useContext(UserContext);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  console.log("state",{state})
   return (
     <BrowserRouter>
       <>
-        <UserContext.Provider value={"hello"}>
-          <Navbar />
+        <UserContext.Provider value={{ state, dispatch }}>
+          <Navbar isAuth={state.isAuth} />
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/signup" component={SignUp} />
+              <Route path="/profile" component={Profile} />
               <Route path="/login" component={Login} />
             </Switch> 
         </UserContext.Provider>

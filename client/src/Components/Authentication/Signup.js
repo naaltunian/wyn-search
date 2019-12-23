@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useReducer } from 'react';
+import UserContext from '../../Contexts/UserContext';
 import { CREATE_USER, GET_CURRENT_USER } from '../../GraphQL/index';
 import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
@@ -14,8 +15,8 @@ const SignUp = () => {
 
     const [user, setUser] = useState(INITIAL_STATE);
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [createUser] = useMutation(CREATE_USER);
-    const [getCurrentUser, { data: currentUserData }] = useLazyQuery(GET_CURRENT_USER);
+    const [createUser, {data: mutationData}] = useMutation(CREATE_USER);
+    const { dispatch} = useContext(UserContext);
     let history = useHistory();
 
     const handleInputChange = field => e => setUser({ ...user, [field]: e.target.value });
@@ -23,12 +24,11 @@ const SignUp = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         let { data } = await createUser({ variables: { userInput: user }});
-        localStorage.setItem('token', data.createUser);
-        getCurrentUser();
-        console.log("in mut", currentUserData);
-        history.push('/');
+        await localStorage.setItem('token', data.createUser);
+        dispatch({type: "LOGIN"});
+        history.push('/profile');
     };
-    console.log("current", currentUserData);
+    console.log("mutationData", mutationData);
 
     // password confirmation field
     const handleConfirmChange = (e) => {

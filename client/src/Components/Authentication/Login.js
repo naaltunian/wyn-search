@@ -1,11 +1,11 @@
 import React, {useContext} from 'react';
 import UserContext from '../../Contexts/UserContext'
 
-const Login = () => {
+const Login = ({ isAuth }) => {
     const message = useContext(UserContext)
     return(
         <div>
-            {message}
+            {isAuth}
         </div>
     )
 }
