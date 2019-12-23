@@ -3,6 +3,7 @@ const { gql } = require('apollo-server-express');
 exports.typeDefs = gql`
 # queries
 type Query {
+    getCurrentUser: User
     getUser(_id: String!): User!
     getAllUsers: [User!]!
 }
