@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import ApolloClient, { InMemoryCache } from 'apollo-boost';
+import { withApollo } from 'react-apollo';
 import { ApolloProvider } from '@apollo/react-hooks';
 
 const client = new ApolloClient({
@@ -21,9 +22,11 @@ const client = new ApolloClient({
     cache: new InMemoryCache()
 });
 
+const AppWithClient = withApollo(App)
+
 ReactDOM.render(
     <ApolloProvider client={client}>
-        <App />
+        <AppWithClient />
     </ApolloProvider>,
     document.getElementById('root')
 );

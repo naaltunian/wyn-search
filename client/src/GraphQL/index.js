@@ -28,3 +28,14 @@ query getCurrentUser {
     isAdmin
   }
 }`;
+
+export const UPDATE_USER = gql`
+mutation updateUser($_id: String!, $userInput: UserInput!) {
+  updateUser(_id: $_id, userInput: $userInput) {
+    name
+    personalSite
+    isAdmin
+    githubUsername
+    email
+  }
+}`
