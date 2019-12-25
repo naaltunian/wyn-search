@@ -8,24 +8,20 @@ import SignUp from './Components/Authentication/SignUp';
 import Login from './Components/Authentication/Login';
 import UserContext from './Contexts/UserContext';
 
-
-
-const App = () => {
-  // const isAuth = useContext(UserContext);
+const App = (props) => {
   const initialState = useContext(UserContext);
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log("state",{state})
   return (
     <BrowserRouter>
       <>
         <UserContext.Provider value={{ state, dispatch }}>
-          <Navbar isAuth={state.isAuth} />
+          <Navbar isAuth={state.isAuth} client={props.client} />
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/signup" component={SignUp} />
               <Route path="/profile" component={Profile} />
               <Route path="/login" component={Login} />
-            </Switch> 
+            </Switch>
         </UserContext.Provider>
       </>
     </BrowserRouter>

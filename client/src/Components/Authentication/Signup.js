@@ -1,7 +1,7 @@
 import React, { useState, useContext, useReducer } from 'react';
 import UserContext from '../../Contexts/UserContext';
-import { CREATE_USER, GET_CURRENT_USER } from '../../GraphQL/index';
-import { useMutation, useLazyQuery } from '@apollo/react-hooks';
+import { CREATE_USER } from '../../GraphQL/index';
+import { useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 
 const INITIAL_STATE = {
@@ -28,7 +28,6 @@ const SignUp = () => {
         dispatch({type: "LOGIN"});
         history.push('/profile');
     };
-    console.log("mutationData", mutationData);
 
     // password confirmation field
     const handleConfirmChange = (e) => {
