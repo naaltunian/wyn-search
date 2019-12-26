@@ -34,7 +34,7 @@ exports.resolvers = {
             return deletedUser;
         },
         // authentication
-        createUser: async (_, { userInput: { name, email, githubUsername, bio, skills, personalSite }}) => {
+        createUser: async (_, { userInput: { name, email, password, githubUsername, bio, skills, personalSite }}) => {
             const user = await User.findOne({ email });
             if(user) throw new Error("User already exists");
             const newUser = await new User({
