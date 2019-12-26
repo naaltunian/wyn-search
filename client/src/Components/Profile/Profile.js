@@ -8,7 +8,6 @@ const Profile = () => {
     const INITIAL_STATE = {
         name: "",
         email: "",
-        password: "",
         githubUsername: "",
         bio: ""
     }
@@ -48,7 +47,6 @@ const Profile = () => {
             <form onSubmit={handleSubmit}>
                 <input type="text" name="name" value={user.name} placeholder="name" onChange={handleInputChange("name")} />
                 <input type="text" name="email" value={user.email} placeholder="email" onChange={handleInputChange("email")} />
-                {/* <input type="password" name="password" value={user.password} placeholder="password" onChange={handleInputChange("password")} /> */}
                 <input type="text" name="githubUsername" value={user.githubUsername} placeholder="github username" onChange={handleInputChange("githubUsername")} />
                 <textarea  name="bio" value={user.bio} placeholder="bio" onChange={handleInputChange("bio")} />
                 <input type="submit" value="Submit" />

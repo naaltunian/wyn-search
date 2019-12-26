@@ -24,9 +24,9 @@ exports.resolvers = {
     },
     Mutation: {
         // user
-        updateUser: async (_, { _id, userInput: { name, email, password, githubUsername, bio, personalSite }}, context) => {
+        updateUser: async (_, { _id, userInput: { name, email, githubUsername, bio, personalSite }}, context) => {
             if(!context.email) return null;
-            const user = await User.findByIdAndUpdate({ _id }, { $set: { name, email, password, githubUsername, bio, personalSite }}, { new: true });
+            const user = await User.findByIdAndUpdate({ _id }, { $set: { name, email, githubUsername, bio, personalSite }}, { new: true });
             return user;
         },
         deleteUser: async (_, { _id }) => {
