@@ -8,7 +8,7 @@
     "client": "cd client && npm start",
     "dev": "concurrently --names \"server,client\" \"npm run server --silent\" \"npm run client --silent\""
   },
-  "author": "Nicholas Altunian, Joshua Martinez, Ana Gonzalez",
+  "author": "Nicholas Altunian, Ana Gonzalez, and James Kemp",
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^2.9.7",

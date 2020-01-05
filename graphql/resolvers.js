@@ -10,7 +10,6 @@ exports.resolvers = {
             if(!context.email) return null;
             const email = context.email;
             const user = await User.findOne({ email });
-            console.log("currentuser", user)
             return user;
         },
         getUser: async (_, { _id }) => {
@@ -26,7 +25,8 @@ exports.resolvers = {
         // user
         updateUser: async (_, { _id, userInput: { name, email, githubUsername, bio, personalSite }}, context) => {
             if(!context.email) return null;
-            const user = await User.findByIdAndUpdate({ _id }, { $set: { name, email, githubUsername, bio, personalSite }}, { new: true });
+            let formattedBio = bio.trim();
+            const user = await User.findByIdAndUpdate({ _id }, { $set: { name, email, githubUsername, bio: formattedBio, personalSite }}, { new: true });
             return user;
         },
         deleteUser: async (_, { _id }) => {
@@ -48,7 +48,7 @@ exports.resolvers = {
             }).save();
             return jwt.sign({ email }, process.env.SECRET, { expiresIn: "7d" });
         },
-        login: async(_, { email, password }, context) => {
+        login: async(_, { email, password }) => {
             const user = await User.findOne({ email });
             if(!user) throw new Error("User not found");
             const isValidPassword = await bcrypt.compare(password, user.password);
