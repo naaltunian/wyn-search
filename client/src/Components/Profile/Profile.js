@@ -26,9 +26,6 @@ const Profile = () => {
         data && setId(_id);
       }, [data]);
 
-    //   console.log("_id", userId);
-    //   console.log("userinputvar", user);
-
     if(loading) return <div>Loading...</div>
     if(error) console.log(error);
 

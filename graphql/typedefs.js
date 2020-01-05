@@ -33,7 +33,7 @@ type User {
 # inputs
 input UserInput {
     name: String!
-    password: String!
+    password: String
     email: String!
     githubUsername: String!
     bio: String
@@ -46,13 +46,21 @@ input UserInput {
 enum SkillsEnum {
     NODEJS
     REACT
+    GIT
+    JQUERY
     JAVASCRIPT
     EXPRESS
     RUBY
+    CSHARP
+    DOTNET
+    GATSBY
     RAILS
     GRAPHQL
     HTML
+    PHP
     CSS
     PYTHON
+    DJANGO
+    FLASK
 }
 `
