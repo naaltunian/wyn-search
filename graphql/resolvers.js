@@ -20,7 +20,16 @@ exports.resolvers = {
         getAllUsers: async () => {
             const users = await User.find();
             return users;
-        }
+        },
+        // login
+        login: async(_, { email, password }, context) => {
+            const user = await User.findOne({ email });
+            if(!user) throw new Error("User not found");
+            const isValidPassword = await bcrypt.compare(password, user.password);
+            if(!isValidPassword) throw new Error("Invalid password");
+
+            return jwt.sign({ email }, process.env.SECRET, { expiresIn: "7d" });
+        },
     },
     Mutation: {
         // user
@@ -46,14 +55,6 @@ exports.resolvers = {
                 personalSite,
                 password: await bcrypt.hash(password, 10)
             }).save();
-            return jwt.sign({ email }, process.env.SECRET, { expiresIn: "7d" });
-        },
-        login: async(_, { email, password }, context) => {
-            const user = await User.findOne({ email });
-            if(!user) throw new Error("User not found");
-            const isValidPassword = await bcrypt.compare(password, user.password);
-            if(!isValidPassword) throw new Error("Invalid password");
-
             return jwt.sign({ email }, process.env.SECRET, { expiresIn: "7d" });
         },
     }
