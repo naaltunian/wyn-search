@@ -39,11 +39,11 @@ const server = new ApolloServer({
         const user = req.currentUser;
         console.log("context", user)
         return user;
-        
+
     }
 });
 // apply graphQL middleware
 server.applyMiddleware({ app, cors: false})
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log(`🚀  Server ready at ${PORT}${server.graphqlPath}`));
+app.listen(PORT, () => console.log(`🚀  Server ready at http://localhost:${PORT}${server.graphqlPath}`));
