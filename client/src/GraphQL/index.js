@@ -16,7 +16,10 @@ query getAllUsers {
     name
     _id
     email
-    dateCreated
+    bio
+    githubUsername
+    skills
+    personalSite
 }`;
 
 export const GET_CURRENT_USER = gql`

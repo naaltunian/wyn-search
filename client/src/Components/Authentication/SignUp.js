@@ -35,6 +35,7 @@ const SignUp = () => {
     };
 
     // client-side form validation
+
     const isInvalid = !user.name || !user.email || !user.password || user.password !== confirmPassword || !user.githubUsername;
 
     return(

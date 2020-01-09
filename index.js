@@ -20,7 +20,7 @@ app.use(async (req, res, next) => {
             console.log("middleware", currentUser)
             req.currentUser = currentUser;
         } catch(err) {
-            console.log(err)
+            console.log("middlware error", err)
         }
     }
     next();
@@ -37,7 +37,6 @@ const server = new ApolloServer({
     resolvers,
     context: async ({req}) => {
         const user = req.currentUser;
-        console.log("context", user)
         return user;
 
     }
