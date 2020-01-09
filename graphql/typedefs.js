@@ -6,7 +6,6 @@ type Query {
     getCurrentUser: User
     getUser(_id: String!): User!
     getAllUsers: [User!]!
-    login: User!
 }
 
 # mutations
