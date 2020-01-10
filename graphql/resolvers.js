@@ -18,6 +18,7 @@ exports.resolvers = {
         },
         getAllUsers: async () => {
             const users = await User.find();
+            console.log("get all", users.map(user => user.email))
             return users;
         },
     },
@@ -51,7 +52,6 @@ exports.resolvers = {
         login: async(_, { email, password }) => {
 
             const user = await User.findOne({ email });
-            console.log("login resolver", user)
             if(!user) throw new Error("User not found");
             const isValidPassword = await bcrypt.compare(password, user.password);
             if(!isValidPassword) throw new Error("Invalid password");
