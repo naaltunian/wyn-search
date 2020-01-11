@@ -13,6 +13,7 @@ mutation login($email: String!, $password: String!){
 
 export const GET_ALL_USERS = gql`
 query getAllUsers {
+  getAllUsers{
     name
     _id
     email
@@ -20,7 +21,9 @@ query getAllUsers {
     githubUsername
     skills
     personalSite
+  }
 }`;
+
 
 export const GET_CURRENT_USER = gql`
 query getCurrentUser {
