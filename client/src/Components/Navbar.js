@@ -17,6 +17,7 @@ const Navbar = ({ isAuth, client }) => {
             <Link to="/">Home</Link>
             <Link to="/signup">SignUp</Link>
             <Link to="/login">Login</Link>
+            <Link to="/profile">Profile</Link>
             <p>{String(isAuth)}</p>
             <button onClick={logout}>Logout</button>
         </>

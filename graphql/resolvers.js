@@ -18,7 +18,6 @@ exports.resolvers = {
         },
         getAllUsers: async () => {
             const users = await User.find();
-            console.log("get all", users.map(user => user.email))
             return users;
         },
     },

@@ -9,6 +9,7 @@ const Profile = () => {
         name: "",
         email: "",
         githubUsername: "",
+        personalSite: "",
         bio: ""
     }
     
@@ -20,9 +21,10 @@ const Profile = () => {
     useEffect(_ => {
         let currentUser;
         let _id;
+        // if (!currentUser) history.push("/");
         if (data) currentUser = data.getCurrentUser;
         if (data) _id = data.getCurrentUser._id;
-        data && setUser({ ...user, name: currentUser.name, email: currentUser.email, githubUsername: currentUser.githubUsername, bio: currentUser.bio });
+        data && setUser({ ...user, name: currentUser.name, email: currentUser.email, githubUsername: currentUser.githubUsername, bio: currentUser.bio, personalSite: currentUser.personalSite });
         data && setId(_id);
       }, [data]);
 
@@ -45,6 +47,7 @@ const Profile = () => {
                 <input type="text" name="name" value={user.name} placeholder="name" onChange={handleInputChange("name")} />
                 <input type="text" name="email" value={user.email} placeholder="email" onChange={handleInputChange("email")} />
                 <input type="text" name="githubUsername" value={user.githubUsername} placeholder="github username" onChange={handleInputChange("githubUsername")} />
+                <input type="text" name="personalSite" value={user.personalSite} placeholder="personal site" onChange={handleInputChange("personalSite")} />
                 <textarea  name="bio" value={user.bio} placeholder="bio" onChange={handleInputChange("bio")} />
                 <input type="submit" value="Submit" />
             </form>

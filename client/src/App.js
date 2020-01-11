@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from 'react';
+import React, { useContext, useReducer, useEffect } from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import reducer from './reducer';
 import Navbar from './Components/Navbar';
@@ -11,6 +11,14 @@ import UserContext from './Contexts/UserContext';
 const App = (props) => {
   const initialState = useContext(UserContext);
   const [state, dispatch] = useReducer(reducer, initialState);
+  
+  // keeps userContext authorized if signed in
+  useEffect(_ => {
+    if (localStorage.getItem("token") != null) {
+      dispatch({type: "LOGIN"});
+    }
+  }, [initialState.isAuth]);
+  
   return (
     <BrowserRouter>
       <>
