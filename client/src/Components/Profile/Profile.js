@@ -21,7 +21,6 @@ const Profile = () => {
     useEffect(_ => {
         let currentUser;
         let _id;
-        // if (!currentUser) history.push("/");
         if (data) currentUser = data.getCurrentUser;
         if (data) _id = data.getCurrentUser._id;
         data && setUser({ ...user, name: currentUser.name, email: currentUser.email, githubUsername: currentUser.githubUsername, bio: currentUser.bio, personalSite: currentUser.personalSite });
