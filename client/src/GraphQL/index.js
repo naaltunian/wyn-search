@@ -24,6 +24,19 @@ query getAllUsers {
   }
 }`;
 
+export const GET_USER = gql`
+query getUser($_id: String!) {
+  getUser(_id: $_id){
+    name
+    _id
+    email
+    bio
+    githubUsername
+    skills
+    personalSite
+  }
+}`;
+
 
 export const GET_CURRENT_USER = gql`
 query getCurrentUser {
