@@ -2,7 +2,7 @@ import React from 'react';
 import { GET_ALL_USERS } from '../../GraphQL/index';
 import { useQuery } from '@apollo/react-hooks';
 
-import StudentPreview from '../StudentPreview/StudentPreview'
+import StudentPreview from './StudentPreview'
 
 const Home = () => {
     const { loading, error, data } = useQuery(GET_ALL_USERS);

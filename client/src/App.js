@@ -4,7 +4,7 @@ import reducer from './reducer';
 import Navbar from './Components/Navbar';
 import Profile from './Components/Profile/Profile';
 import Home from './Components/Students/Home';
-import Student from './Components/Student/Student'
+import Student from './Components/Students/Student'
 import SignUp from './Components/Authentication/SignUp';
 import Login from './Components/Authentication/Login';
 import UserContext from './Contexts/UserContext';

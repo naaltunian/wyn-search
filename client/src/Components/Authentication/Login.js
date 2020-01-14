@@ -24,7 +24,7 @@ const Login = ({ isAuth }) => {
         let { data } = await login();
         await localStorage.setItem('token', data.login);
         dispatch({type: "LOGIN"});
-        history.push('/profile');
+        history.push('/');
     };
 
     const isInvalid = !user.email || !user.password;
