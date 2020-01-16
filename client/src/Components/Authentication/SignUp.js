@@ -10,46 +10,14 @@ import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 
 import UserContext from '../../Contexts/UserContext'
 import { CREATE_USER } from '../../GraphQL/index'
 import { useMutation } from '@apollo/react-hooks'
 import { useHistory } from 'react-router-dom'
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  )
-}
-
-const useStyles = makeStyles(theme => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
-}))
+import Copyright from './Copyright'
+import useStyles from './FormStyles'
 
 const INITIAL_STATE = {
   name: '',
@@ -108,11 +76,10 @@ const SignUp = () => {
             variant="outlined"
             margin="normal"
             fullWidth
-            id="firstName"
-            label="First Name"
+            id="name"
+            label="Name"
             autoFocus
             value={user.name}
-            placeholder="name"
             onChange={handleInputChange('name')}
           />
           <TextField
@@ -124,7 +91,6 @@ const SignUp = () => {
             name="email"
             autoComplete="email"
             value={user.email}
-            placeholder="email"
             onChange={handleInputChange('email')}
           />
           <TextField
@@ -137,7 +103,6 @@ const SignUp = () => {
             id="password"
             autoComplete="current-password"
             value={user.password}
-            placeholder="password"
             onChange={handleInputChange('password')}
           />
           <TextField
@@ -150,7 +115,6 @@ const SignUp = () => {
             id="password"
             autoComplete="current-password"
             value={confirmPassword}
-            placeholder="confirm password"
             onChange={e => handleConfirmChange(e)}
           />
           <TextField
@@ -158,12 +122,11 @@ const SignUp = () => {
             margin="normal"
             fullWidth
             name="github"
-            label="github"
+            label="Github"
             type="github"
             id="github"
             autoComplete="current-github"
             value={user.githubUsername}
-            placeholder="github username"
             onChange={handleInputChange('githubUsername')}
           />
           <Button
@@ -176,8 +139,14 @@ const SignUp = () => {
           >
             Sign Up
           </Button>
+          <Link href="/login" variant="body2">
+            Already have an account? Sign in
+          </Link>
         </form>
       </div>
+      <Box mt={8}>
+        <Copyright />
+      </Box>
     </Container>
   )
 }
