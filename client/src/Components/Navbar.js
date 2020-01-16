@@ -1,5 +1,8 @@
 import React, { useContext } from 'react';
-import { withApollo } from 'apollo-boost'
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 import { Link, useHistory } from 'react-router-dom';
 import UserContext from '../Contexts/UserContext';
 
@@ -20,23 +23,27 @@ const NavbarAuth = ({ isAuth, client }) => {
         history.push('/');
     }
     return(
-        <>
-            <Link to="/">Home</Link>
-            <Link to="/profile">Profile</Link>
-            <p>Logged in: {String(isAuth)}</p>
-            <button onClick={logout}>Logout</button>
-        </>
+        <AppBar position="static">
+            <Toolbar>
+                <Link to="/">Home</Link>
+                <Link to="/profile">Profile</Link>
+                <p>Logged in: {String(isAuth)}</p>
+                <button onClick={logout}>Logout</button>
+            </Toolbar>
+        </AppBar>
     )
 }
 
 const NavbarUnAuth = ({ isAuth, client }) => {
     
     return(
-        <>
-            <Link to="/">Home</Link>
-            <Link to="/signup">SignUp</Link>
-            <Link to="/login">Login</Link>
-        </>
+        <AppBar position="static">
+            <Toolbar>
+                <Link to="/">Home</Link>
+                <Link to="/signup">SignUp</Link>
+                <Link to="/login">Login</Link>
+            </Toolbar>
+        </AppBar>
     )
 }
 
