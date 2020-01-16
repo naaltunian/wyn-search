@@ -12,11 +12,11 @@ const Profile = () => {
         personalSite: "",
         bio: ""
     }
-    
+
     let history = useHistory();
     const [user, setUser] = useState(INITIAL_STATE);
     const [userId, setId] = useState("");
-    const [updateUser, {data: mutationData}] = useMutation(UPDATE_USER, { variables: { _id: userId, userInput: user } });
+    const [updateUser, {data: mutationData}] = useMutation(UPDATE_USER, { variables: { _id: userId, userInput: user }, refetchQueries: [{query: GET_CURRENT_USER}] });
 
     useEffect(_ => {
         let currentUser;
@@ -30,13 +30,13 @@ const Profile = () => {
     if(loading) return <div>Loading...</div>
     if(error) console.log(error);
 
-    
+
     const handleInputChange = field => e => setUser({ ...user, [field]: e.target.value });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         let { data } = await updateUser();
-        history.push("/");
+        history.push("/profile");
     };
 
     return(
