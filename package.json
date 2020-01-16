@@ -11,6 +11,7 @@
   "author": "Nicholas Altunian and James Kemp",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/icons": "^4.5.1",
     "apollo-server": "^2.9.7",
     "apollo-server-express": "^2.9.7",
     "bcrypt": "^3.0.6",
