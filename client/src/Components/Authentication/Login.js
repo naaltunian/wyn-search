@@ -17,39 +17,8 @@ import UserContext from '../../Contexts/UserContext'
 import { LOGIN } from '../../GraphQL/index'
 import { useMutation } from '@apollo/react-hooks'
 import { useHistory } from 'react-router-dom'
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://wyncode.co/">
-        Wyncode
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  )
-}
-
-const useStyles = makeStyles(theme => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
-}))
+import Copyright from './Copyright'
+import useStyles from './FormStyles'
 
 const INITIAL_STATE = {
   email: '',
@@ -102,7 +71,6 @@ const Login = ({ isAuth }) => {
             autoComplete="email"
             autoFocus
             value={user.email}
-            placeholder="email"
             onChange={handleInputChange('email')}
           />
           <TextField
@@ -116,7 +84,6 @@ const Login = ({ isAuth }) => {
             id="password"
             autoComplete="current-password"
             value={user.password}
-            placeholder="password"
             onChange={handleInputChange('password')}
           />
           <Button
@@ -136,7 +103,7 @@ const Login = ({ isAuth }) => {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
