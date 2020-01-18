@@ -1,33 +1,28 @@
-import React, { useState, useContext, useReducer } from 'react'
-import Avatar from '@material-ui/core/Avatar'
-import Button from '@material-ui/core/Button'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import TextField from '@material-ui/core/TextField'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
-import Link from '@material-ui/core/Link'
-import Grid from '@material-ui/core/Grid'
-import Box from '@material-ui/core/Box'
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
-import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
-import Container from '@material-ui/core/Container'
+import React, { useState, useContext } from 'react';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 
-import UserContext from '../../Contexts/UserContext'
-import { LOGIN } from '../../GraphQL/index'
-import { useMutation } from '@apollo/react-hooks'
-import { useHistory } from 'react-router-dom'
-import Copyright from './Copyright'
-import useStyles from './FormStyles'
+import UserContext from '../../Contexts/UserContext';
+import { LOGIN } from '../../GraphQL/index';
+import { useMutation } from '@apollo/react-hooks';
+import { useHistory } from 'react-router-dom';
+import Copyright from './Copyright';
+import useFormStyles from './FormStyles';
 
 const INITIAL_STATE = {
   email: '',
   password: ''
 }
 
-const Login = ({ isAuth }) => {
-  const classes = useStyles()
-  const message = useContext(UserContext)
+const Login = () => {
+  const classes = useFormStyles()
 
   const [user, setUser] = useState(INITIAL_STATE)
   const [login, { data, error }] = useMutation(LOGIN, {
@@ -50,17 +45,15 @@ const Login = ({ isAuth }) => {
   const isInvalid = !user.email || !user.password
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
+    <Container component="main" maxWidth="xs" className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+            <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Login
+            Login
         </Typography>
         <form onSubmit={handleSubmit} className={classes.form} noValidat>
-          <TextField
+            <TextField
             variant="outlined"
             margin="normal"
             required
@@ -72,8 +65,8 @@ const Login = ({ isAuth }) => {
             autoFocus
             value={user.email}
             onChange={handleInputChange('email')}
-          />
-          <TextField
+            />
+            <TextField
             variant="outlined"
             margin="normal"
             required
@@ -85,31 +78,30 @@ const Login = ({ isAuth }) => {
             autoComplete="current-password"
             value={user.password}
             onChange={handleInputChange('password')}
-          />
-          <Button
+            />
+            <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
             disabled={isInvalid}
-          >
+            >
             Sign In
-          </Button>
-          <Grid container>
+            </Button>
+            <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+                <Link href="#" variant="body2">
                 Forgot password?
-              </Link>
+                </Link>
             </Grid>
             <Grid item>
-              <Link href="signup" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
+                <Link href="signup" variant="body2">
+                Don't have an account? Sign Up
+                </Link>
             </Grid>
-          </Grid>
+            </Grid>
         </form>
-      </div>
       <Box mt={8}>
         <Copyright />
       </Box>
