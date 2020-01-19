@@ -34,6 +34,7 @@ query getUser($_id: String!) {
     githubUsername
     skills
     personalSite
+    linkedIn
   }
 }`;
 
@@ -45,6 +46,7 @@ query getCurrentUser {
     name
     email
     githubUsername
+    linkedIn
     personalSite
     bio
     skills
@@ -60,6 +62,7 @@ mutation updateUser($_id: String!, $userInput: UserInput!) {
     personalSite
     isAdmin
     githubUsername
+    linkedIn
     email
   }
 }`

@@ -14,6 +14,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    linkedIn: {
+        type: String,
+        unique: true
+    },
     githubUsername: {
         type: String,
         required: true,

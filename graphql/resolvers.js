@@ -23,10 +23,10 @@ exports.resolvers = {
     },
     Mutation: {
         // user
-        updateUser: async (_, { _id, userInput: { name, email, githubUsername, bio, personalSite }}, context) => {
+        updateUser: async (_, { _id, userInput: { name, email, githubUsername, bio, personalSite, linkedIn }}, context) => {
             if(!context.email) return null;
             let formattedBio = bio.trim();
-            const user = await User.findByIdAndUpdate({ _id }, { $set: { name, email, githubUsername, bio: formattedBio, personalSite }}, { new: true });
+            const user = await User.findByIdAndUpdate({ _id }, { $set: { name, email, githubUsername, bio: formattedBio, personalSite, linkedIn }}, { new: true });
             return user;
         },
         deleteUser: async (_, { _id }) => {
