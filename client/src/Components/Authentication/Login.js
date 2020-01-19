@@ -14,7 +14,7 @@ import { LOGIN } from '../../GraphQL/index';
 import { useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import Copyright from './Copyright';
-import useFormStyles from './FormStyles';
+import useFormStyles from '../../Styles/FormStyles';
 
 const INITIAL_STATE = {
   email: '',
@@ -52,7 +52,7 @@ const Login = () => {
         <Typography component="h1" variant="h5">
             Login
         </Typography>
-        <form onSubmit={handleSubmit} className={classes.form} noValidat>
+        <form onSubmit={handleSubmit} className={classes.form} noValidate>
             <TextField
             variant="outlined"
             margin="normal"

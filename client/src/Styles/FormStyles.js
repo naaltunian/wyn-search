@@ -1,4 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar'; // required for avatar background color
+
 const useFormStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -19,4 +21,4 @@ const useFormStyles = makeStyles(theme => ({
   }
 }))
 
-export default useFormStyles
+export default useFormStyles;

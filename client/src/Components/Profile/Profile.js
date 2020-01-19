@@ -2,6 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { GET_CURRENT_USER, UPDATE_USER } from '../../GraphQL/index';
 import { useHistory } from 'react-router-dom';
+import useFormStyles from '../../Styles/FormStyles';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import Link from '@material-ui/core/Link';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 
 const Profile = () => {
     const { loading, error, data } = useQuery(GET_CURRENT_USER);
@@ -14,6 +24,7 @@ const Profile = () => {
     }
 
     let history = useHistory();
+    const classes = useFormStyles();
     const [user, setUser] = useState(INITIAL_STATE);
     const [userId, setId] = useState("");
     const [updateUser, {data: mutationData}] = useMutation(UPDATE_USER, { variables: { _id: userId, userInput: user }, refetchQueries: [{query: GET_CURRENT_USER}] });
@@ -40,17 +51,86 @@ const Profile = () => {
     };
 
     return(
-        <>
-            <h1>Update Profile</h1>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="name" value={user.name} placeholder="name" onChange={handleInputChange("name")} />
-                <input type="text" name="email" value={user.email} placeholder="email" onChange={handleInputChange("email")} />
-                <input type="text" name="githubUsername" value={user.githubUsername} placeholder="github username" onChange={handleInputChange("githubUsername")} />
-                <input type="text" name="personalSite" value={user.personalSite} placeholder="personal site" onChange={handleInputChange("personalSite")} />
-                <textarea  name="bio" value={user.bio} placeholder="bio" onChange={handleInputChange("bio")} />
-                <input type="submit" value="Submit" />
+        <Container component="main" maxWidth="xs" className={classes.paper}>
+            <Avatar className={classes.avatar}>
+                <AccountBoxIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+                Update Profile
+            </Typography>
+            <form className={classes.form} noValidate onSubmit={handleSubmit}>
+                <TextField
+                    autoComplete="name"
+                    name="name"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    id="name"
+                    label="Name"
+                    autoFocus
+                    value={user.name}
+                    onChange={handleInputChange('name')}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    value={user.email}
+                    onChange={handleInputChange('email')}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    name="github"
+                    label="Github"
+                    type="github"
+                    id="github"
+                    autoComplete="current-github"
+                    value={user.githubUsername}
+                    onChange={handleInputChange('githubUsername')}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    name="personalSite"
+                    label="Personal Site"
+                    type="personalSite"
+                    id="personalSite"
+                    autoComplete="personal-site"
+                    value={user.personalSite}
+                    onChange={handleInputChange('personalSite')}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    multiline
+                    rows="3"
+                    name="bio"
+                    label="Bio"
+                    type="bio"
+                    id="bio"
+                    autoComplete="bio"
+                    value={user.bio}
+                    onChange={handleInputChange('bio')}
+                />
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                >
+                    Update Profile
+                </Button>
             </form>
-        </>
+        </Container>
     )
 }
 

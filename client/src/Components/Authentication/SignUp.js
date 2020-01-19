@@ -13,7 +13,7 @@ import { CREATE_USER } from '../../GraphQL/index';
 import { useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import Copyright from './Copyright';
-import useFormStyles from './FormStyles';
+import useFormStyles from '../../Styles/FormStyles';
 
 const INITIAL_STATE = {
   name: '',
@@ -23,11 +23,11 @@ const INITIAL_STATE = {
 }
 
 const SignUp = () => {
-  const classes = useFormStyles()
-  const [user, setUser] = useState(INITIAL_STATE)
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [createUser, { data: mutationData }] = useMutation(CREATE_USER)
-  const { dispatch } = useContext(UserContext)
+  const classes = useFormStyles();
+  const [user, setUser] = useState(INITIAL_STATE);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [createUser, { data: mutationData }] = useMutation(CREATE_USER);
+  const { dispatch } = useContext(UserContext);
   let history = useHistory()
 
   const handleInputChange = field => e =>
@@ -143,4 +143,4 @@ const SignUp = () => {
   )
 }
 
-export default SignUp
+export default SignUp;
