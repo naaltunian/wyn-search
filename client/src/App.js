@@ -1,5 +1,6 @@
 import React, { useContext, useReducer, useEffect } from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import reducer from './reducer';
 import Navbar from './Components/Navbar';
 import Profile from './Components/Profile/Profile';
@@ -24,6 +25,7 @@ const App = (props) => {
     <BrowserRouter>
       <>
         <UserContext.Provider value={{ state, dispatch }}>
+          <CssBaseline />
           <Navbar isAuth={state.isAuth} client={props.client} />
             <Switch>
               <Route exact path="/" component={Home} />
