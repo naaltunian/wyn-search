@@ -21,6 +21,7 @@ const Profile = () => {
         email: "",
         githubUsername: "",
         personalSite: "",
+        linkedIn: "",
         bio: ""
     }
 
@@ -36,7 +37,7 @@ const Profile = () => {
         let _id;
         if (data) currentUser = data.getCurrentUser;
         if (data) _id = data.getCurrentUser._id;
-        data && setUser({ ...user, name: currentUser.name, email: currentUser.email, githubUsername: currentUser.githubUsername, bio: currentUser.bio, personalSite: currentUser.personalSite });
+        data && setUser({ ...user, name: currentUser.name, email: currentUser.email, githubUsername: currentUser.githubUsername, bio: currentUser.bio, personalSite: currentUser.personalSite, linkedIn: currentUser.linkedIn });
         data && setId(_id);
       }, [data]);
 
@@ -104,6 +105,18 @@ const Profile = () => {
                     autoComplete="current-github"
                     value={user.githubUsername}
                     onChange={handleInputChange('githubUsername')}
+                />
+                <TextField
+                    autoComplete="name"
+                    name="linkedIn"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    id="linkedIn"
+                    label="LinkedIn"
+                    autoFocus
+                    value={user.linkedIn}
+                    onChange={handleInputChange('linkedIn')}
                 />
                 <TextField
                     variant="outlined"

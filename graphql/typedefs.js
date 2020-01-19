@@ -23,6 +23,7 @@ type User {
     password: String!
     email: String!
     githubUsername: String!
+    linkedIn: String
     bio: String
     skills: [SkillsEnum]
     personalSite: String
@@ -35,6 +36,7 @@ input UserInput {
     name: String!
     password: String
     email: String!
+    linkedIn: String
     githubUsername: String!
     bio: String
     skills: [SkillsEnum]
