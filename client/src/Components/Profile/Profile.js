@@ -15,164 +15,206 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 
 const Profile = () => {
-    const { loading, error, data } = useQuery(GET_CURRENT_USER);
-    const INITIAL_STATE = {
-        name: "",
-        email: "",
-        githubUsername: "",
-        personalSite: "",
-        linkedIn: "",
-        bio: ""
-    }
+  const { loading, error, data } = useQuery(GET_CURRENT_USER);
+  const INITIAL_STATE = {
+    name: '',
+    email: '',
+    githubUsername: '',
+    personalSite: '',
+    linkedIn: '',
+    bio: ''
+  };
 
-    let history = useHistory();
-    const classes = useFormStyles();
-    const [user, setUser] = useState(INITIAL_STATE);
-    const [userId, setId] = useState("");
-    const [open, setOpen] = React.useState(false);
-    const [updateUser, {data: mutationData}] = useMutation(UPDATE_USER, { variables: { _id: userId, userInput: user }, refetchQueries: [{query: GET_CURRENT_USER}] });
+  let history = useHistory();
+  const classes = useFormStyles();
+  const [user, setUser] = useState(INITIAL_STATE);
+  const [userId, setId] = useState('');
+  const [open, setOpen] = React.useState(false);
+  const [updateUser, { data: mutationData }] = useMutation(UPDATE_USER, {
+    variables: { _id: userId, userInput: user },
+    refetchQueries: [{ query: GET_CURRENT_USER }]
+  });
 
-    useEffect(_ => {
-        let currentUser;
-        let _id;
-        if (data) currentUser = data.getCurrentUser;
-        if (data) _id = data.getCurrentUser._id;
-        data && setUser({ ...user, name: currentUser.name, email: currentUser.email, githubUsername: currentUser.githubUsername, bio: currentUser.bio, personalSite: currentUser.personalSite, linkedIn: currentUser.linkedIn });
-        data && setId(_id);
-      }, [data]);
+  useEffect(
+    _ => {
+      let currentUser;
+      let _id;
+      if (data) currentUser = data.getCurrentUser;
+      if (data) _id = data.getCurrentUser._id;
+      data &&
+        setUser({
+          ...user,
+          name: currentUser.name,
+          email: currentUser.email,
+          githubUsername: currentUser.githubUsername,
+          bio: currentUser.bio,
+          personalSite: currentUser.personalSite,
+          linkedIn: currentUser.linkedIn
+        });
+      data && setId(_id);
+    },
+    [data]
+  );
 
-    if(loading) return <div>Loading...</div>
-    if(error) console.log(error);
+  if (loading) return <div>Loading...</div>;
+  if (error) console.log(error);
 
+  const handleInputChange = field => e =>
+    setUser({ ...user, [field]: e.target.value });
 
-    const handleInputChange = field => e => setUser({ ...user, [field]: e.target.value });
+  const handleSubmit = async e => {
+    e.preventDefault();
+    let { data } = await updateUser();
+    handleClickOpen();
+    history.push('/profile');
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        let { data } = await updateUser();
-        handleClickOpen();
-        history.push("/profile");
-    };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-    
-    const handleClose = () => {
+  const handleClose = () => {
     setOpen(false);
-    };
+  };
 
-    return(
-        <Container component="main" maxWidth="xs" className={classes.paper}>
-            <Avatar className={classes.avatar}>
-                <AccountBoxIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-                Update Profile
-            </Typography>
-            <form className={classes.form} noValidate onSubmit={handleSubmit}>
-                <TextField
-                    autoComplete="name"
-                    name="name"
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    id="name"
-                    label="Name"
-                    autoFocus
-                    value={user.name}
-                    onChange={handleInputChange('name')}
-                />
-                <TextField
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    autoComplete="email"
-                    value={user.email}
-                    onChange={handleInputChange('email')}
-                />
-                <TextField
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    name="github"
-                    label="Github"
-                    type="github"
-                    id="github"
-                    autoComplete="current-github"
-                    value={user.githubUsername}
-                    onChange={handleInputChange('githubUsername')}
-                />
-                <TextField
-                    autoComplete="name"
-                    name="linkedIn"
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    id="linkedIn"
-                    label="LinkedIn"
-                    autoFocus
-                    value={user.linkedIn}
-                    onChange={handleInputChange('linkedIn')}
-                />
-                <TextField
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    name="personalSite"
-                    label="Personal Site"
-                    type="personalSite"
-                    id="personalSite"
-                    autoComplete="personal-site"
-                    value={user.personalSite}
-                    onChange={handleInputChange('personalSite')}
-                />
-                <TextField
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    multiline
-                    rows="3"
-                    name="bio"
-                    label="Bio"
-                    type="bio"
-                    id="bio"
-                    autoComplete="bio"
-                    value={user.bio}
-                    onChange={handleInputChange('bio')}
-                />
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                >
-                    Update Profile
-                </Button>
-            </form>
-            <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        Profile Updated
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Ok
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        </Container>
-    )
-}
+  const handlePost = e => {
+    e.preventDefault();
+    const file = document.getElementById('file').files;
+    const formData = new FormData();
+
+    formData.append('file', file[0]);
+
+    fetch('http://localhost:5000/', {
+      method: 'POST',
+      body: formData
+    }).then(r => {
+      console.log(r);
+    });
+    console.log(file[0]);
+  };
+
+  return (
+    <Container component="main" maxWidth="xs" className={classes.paper}>
+      <Avatar className={classes.avatar}>
+        <AccountBoxIcon />
+      </Avatar>
+      <Typography component="h1" variant="h5">
+        Update Profile
+      </Typography>
+      <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" id="file" />
+        <label for="file">Choose file</label>
+        <button type="submit" onClick={handlePost}>
+          Submit photo
+        </button>
+      </form>
+      <img
+        id="imgTest"
+        src="http://localhost:5000/images/6f394074d5740d442cf3f93c40e68cbb"
+      />
+      <form className={classes.form} noValidate onSubmit={handleSubmit}>
+        <TextField
+          autoComplete="name"
+          name="name"
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          id="name"
+          label="Name"
+          autoFocus
+          value={user.name}
+          onChange={handleInputChange('name')}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          id="email"
+          label="Email Address"
+          name="email"
+          autoComplete="email"
+          value={user.email}
+          onChange={handleInputChange('email')}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          name="github"
+          label="Github"
+          type="github"
+          id="github"
+          autoComplete="current-github"
+          value={user.githubUsername}
+          onChange={handleInputChange('githubUsername')}
+        />
+        <TextField
+          autoComplete="name"
+          name="linkedIn"
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          id="linkedIn"
+          label="LinkedIn"
+          autoFocus
+          value={user.linkedIn}
+          onChange={handleInputChange('linkedIn')}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          name="personalSite"
+          label="Personal Site"
+          type="personalSite"
+          id="personalSite"
+          autoComplete="personal-site"
+          value={user.personalSite}
+          onChange={handleInputChange('personalSite')}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          multiline
+          rows="3"
+          name="bio"
+          label="Bio"
+          type="bio"
+          id="bio"
+          autoComplete="bio"
+          value={user.bio}
+          onChange={handleInputChange('bio')}
+        />
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+        >
+          Update Profile
+        </Button>
+      </form>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Profile Updated
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Container>
+  );
+};
 
 export default Profile;
