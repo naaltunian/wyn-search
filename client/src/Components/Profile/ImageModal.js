@@ -4,21 +4,6 @@ import Modal from '@material-ui/core/Modal'
 import AccountBoxIcon from '@material-ui/icons/AccountBox'
 import Avatar from '@material-ui/core/Avatar'
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10
-}
-
-function getModalStyle() {
-  const top = 50 + rand()
-  const left = 50 + rand()
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`
-  }
-}
-
 const useStyles = makeStyles(theme => ({
   paper: {
     position: 'absolute',
@@ -30,11 +15,26 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    height: "150px",
+    width: "150px"
+  },
+  icon: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
   }
 }))
 
-export default function SimpleModal() {
+function getModalStyle() {
+  const top = 50
+  const left = 50
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`
+  }
+}
+
+export default function SimpleModal( { id, photoUrl } ) {
   const classes = useStyles()
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle)
@@ -48,11 +48,20 @@ export default function SimpleModal() {
     setOpen(false)
   }
 
+  const uploadPhoto = async (e) => {
+    let formData = new FormData();
+    formData.append("photo", e.target.files[0]);
+    let data = await fetch(`http://localhost:5000/upload/profile-pic/${id}`, {
+      method: 'POST',
+      body: formData
+    });
+    // setOpen(false);
+  }
   return (
     <div>
-      <Avatar className={classes.avatar} onClick={handleOpen}>
-        <AccountBoxIcon />
-      </Avatar>
+      <Avatar className={photoUrl ? classes.avatar : classes.icon} src={photoUrl} onClick={handleOpen} alt="user profile picture">
+        <AccountBoxIcon className={classes.icon} />
+      </Avatar> 
       <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
@@ -60,11 +69,12 @@ export default function SimpleModal() {
         onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-          <h2 id="simple-modal-title">Text in a modal</h2>
-          <p id="simple-modal-description">
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </p>
-          <SimpleModal />
+          <h3>Upload Profile Pic</h3>
+          <input
+            accept="image/*"
+            onChange={uploadPhoto}
+            type="file"
+          />
         </div>
       </Modal>
     </div>

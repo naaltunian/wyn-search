@@ -4,7 +4,9 @@ const { ApolloServer } = require('apollo-server-express');
 const { typeDefs } = require('./graphql/typedefs');
 const { resolvers } = require('./graphql/resolvers');
 const jwt = require('jsonwebtoken');
+const profilePicRoutes = require("./Routes/ProfilePic");
 const mongoose = require('mongoose');
+const bodyParser = require("body-parser");
 require('dotenv').config();
 
 const app = express();
@@ -25,6 +27,12 @@ app.use(async (req, res, next) => {
     }
     next();
 })
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// routes
+app.use("/", profilePicRoutes);
 
 // database connection
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })

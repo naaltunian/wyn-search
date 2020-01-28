@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
 const User = require('../Models/User');
+require('dotenv').config();
 
 exports.resolvers = {
     Query: {
@@ -48,8 +48,7 @@ exports.resolvers = {
             }).save();
             return jwt.sign({ email }, process.env.SECRET, { expiresIn: "7d" });
         },
-        login: async(_, { email, password }) => {
-
+        login: async (_, { email, password }) => {
             const user = await User.findOne({ email });
             if(!user) throw new Error("User not found");
             const isValidPassword = await bcrypt.compare(password, user.password);

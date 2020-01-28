@@ -3,8 +3,6 @@ import { useQuery, useMutation } from '@apollo/react-hooks'
 import { GET_CURRENT_USER, UPDATE_USER } from '../../GraphQL/index'
 import { useHistory } from 'react-router-dom'
 import useFormStyles from '../../Styles/FormStyles'
-import AccountBoxIcon from '@material-ui/icons/AccountBox'
-import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
@@ -24,7 +22,7 @@ const Profile = () => {
     personalSite: '',
     linkedIn: '',
     bio: '',
-    photo: ''
+    photoUrl: ''
   }
 
   let history = useHistory()
@@ -50,9 +48,10 @@ const Profile = () => {
           name: currentUser.name,
           email: currentUser.email,
           githubUsername: currentUser.githubUsername,
-          bio: currentUser.bio,
-          personalSite: currentUser.personalSite,
-          linkedIn: currentUser.linkedIn
+          bio: currentUser.bio ? currentUser.bio : "",
+          personalSite: currentUser.personalSite ? currentUser.personalSite : "",
+          linkedIn: currentUser.linkedIn ? currentUser.linkedIn : "",
+          photoUrl: currentUser.photoUrl ? currentUser.photoUrl : ""
         })
       data && setId(_id)
     },
@@ -65,14 +64,13 @@ const Profile = () => {
   const handleInputChange = field => e =>
     setUser({
       ...user,
-      [field]: field === 'photo' ? e.target.files[0] : e.target.value
+      [field]: e.target.value
     })
 
   const handleSubmit = async e => {
     e.preventDefault()
     let { data } = await updateUser()
     handleClickOpen()
-    history.push('/profile')
   }
 
   const handleClickOpen = () => {
@@ -82,16 +80,10 @@ const Profile = () => {
   const handleClose = () => {
     setOpen(false)
   }
-  console.log(profileModal)
+
   return (
     <Container component="main" maxWidth="xs" className={classes.paper}>
-      <ImageModal />
-      <input
-        accept="image/*"
-        onChange={handleInputChange('photo')}
-        type="file"
-      />
-      <img src={user.photo} alt="test" />
+      <ImageModal id={userId} photoUrl={user.photoUrl} handleInputChange={handleInputChange} />
       <Typography component="h1" variant="h5">
         Update Profile
       </Typography>
