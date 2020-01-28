@@ -22,13 +22,15 @@ const Profile = () => {
         githubUsername: "",
         personalSite: "",
         linkedIn: "",
-        bio: ""
+        bio: "",
+        photo: ""
     }
 
     let history = useHistory();
     const classes = useFormStyles();
     const [user, setUser] = useState(INITIAL_STATE);
     const [userId, setId] = useState("");
+    const [profileModal, setProfileModal] = useState(false);
     const [open, setOpen] = React.useState(false);
     const [updateUser, {data: mutationData}] = useMutation(UPDATE_USER, { variables: { _id: userId, userInput: user }, refetchQueries: [{query: GET_CURRENT_USER}] });
 
@@ -44,8 +46,7 @@ const Profile = () => {
     if(loading) return <div>Loading...</div>
     if(error) console.log(error);
 
-
-    const handleInputChange = field => e => setUser({ ...user, [field]: e.target.value });
+    const handleInputChange = field => e => setUser({ ...user, [field]:  field === "photo" ?  e.target.files[0] : e.target.value });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -61,12 +62,14 @@ const Profile = () => {
     const handleClose = () => {
     setOpen(false);
     };
-
+console.log(profileModal)
     return(
         <Container component="main" maxWidth="xs" className={classes.paper}>
-            <Avatar className={classes.avatar}>
+            <Avatar onClick={() => setProfileModal(true)} className={classes.avatar}>
                 <AccountBoxIcon />
             </Avatar>
+            <input accept="image/*" onChange={handleInputChange('photo')} type="file" />
+            <img src={user.photo} alt="test"/>
             <Typography component="h1" variant="h5">
                 Update Profile
             </Typography>
