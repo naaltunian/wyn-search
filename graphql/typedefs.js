@@ -29,6 +29,7 @@ type User {
     personalSite: String
     dateCreated: String!
     isAdmin: Boolean
+    photoUrl: String
 }
 
 # inputs

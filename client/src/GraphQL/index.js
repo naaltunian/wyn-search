@@ -21,6 +21,7 @@ query getAllUsers {
     githubUsername
     skills
     personalSite
+    photoUrl
   }
 }`;
 
@@ -35,6 +36,7 @@ query getUser($_id: String!) {
     skills
     personalSite
     linkedIn
+    photoUrl
   }
 }`;
 
@@ -52,6 +54,7 @@ query getCurrentUser {
     skills
     dateCreated
     isAdmin
+    photoUrl
   }
 }`;
 
