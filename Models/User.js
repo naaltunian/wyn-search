@@ -25,7 +25,8 @@ const UserSchema = new mongoose.Schema({
   },
   personalSite: String,
   bio: {
-    type: String
+    type: String,
+    trim: true
   },
   skills: [
     {

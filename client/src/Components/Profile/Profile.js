@@ -21,14 +21,14 @@ const Profile = () => {
     githubUsername: '',
     personalSite: '',
     linkedIn: '',
-    bio: '',
-    photoUrl: ''
+    bio: ''
   }
 
   let history = useHistory()
   const classes = useFormStyles()
   const [user, setUser] = useState(INITIAL_STATE)
   const [userId, setId] = useState('')
+  const [photoUrl, setPhotoUrl] = useState('')
   const [profileModal, setProfileModal] = useState(false)
   const [open, setOpen] = React.useState(false)
   const [updateUser, { data: mutationData }] = useMutation(UPDATE_USER, {
@@ -40,8 +40,10 @@ const Profile = () => {
     _ => {
       let currentUser
       let _id
+      let photoUrlFromData
       if (data) currentUser = data.getCurrentUser
       if (data) _id = data.getCurrentUser._id
+      if (data) photoUrlFromData = data.getCurrentUser.photoUrl
       data &&
         setUser({
           ...user,
@@ -50,10 +52,11 @@ const Profile = () => {
           githubUsername: currentUser.githubUsername,
           bio: currentUser.bio ? currentUser.bio : "",
           personalSite: currentUser.personalSite ? currentUser.personalSite : "",
-          linkedIn: currentUser.linkedIn ? currentUser.linkedIn : "",
-          photoUrl: currentUser.photoUrl ? currentUser.photoUrl : ""
+          linkedIn: currentUser.linkedIn ? currentUser.linkedIn : ""
+          // photoUrl: currentUser.photoUrl ? currentUser.photoUrl : ""
         })
       data && setId(_id)
+      data && setPhotoUrl(photoUrlFromData)
     },
     [data]
   )
@@ -83,7 +86,7 @@ const Profile = () => {
 
   return (
     <Container component="main" maxWidth="xs" className={classes.paper}>
-      <ImageModal id={userId} photoUrl={user.photoUrl} handleInputChange={handleInputChange} />
+      <ImageModal id={userId} photoUrl={photoUrl} handleInputChange={handleInputChange} />
       <Typography component="h1" variant="h5">
         Update Profile
       </Typography>
