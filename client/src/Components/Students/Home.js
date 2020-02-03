@@ -30,6 +30,7 @@ const Home = () => {
                             github={user.githubUsername}
                             skills={user.skills}
                             site={user.personalSite}
+                            photoUrl={user.photoUrl}
                         />
                     </Grid>
                 ))

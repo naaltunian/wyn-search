@@ -1,15 +1,64 @@
 import React from 'react'
+import defaultAvatar from '../../assets/defaultAvatar.png'
 import { Link } from 'react-router-dom'
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 
-const StudentPreview = ({ id, name, email, bio, github, skills, site}) => {
+import Typography from '@material-ui/core/Typography';
+
+const useStyles = makeStyles({
+    root: {
+      maxWidth: 345,
+      minHeight: 350
+      // maxHeight: 345
+    },
+    link: {
+        textDecoration: "none"
+    }
+  });
+
+const StudentPreview = ({ id, name, email, bio, github, skills, site, photoUrl}) => {
+    const classes = useStyles();
+
     return (
-        <Link to={{
+        <Link className={classes.link} to={{
             pathname: `/user/${id}`,
             state: {
                 id: id,
             }
         }}>
-            <div style={{
+            <Card className={classes.root}>
+                <CardActionArea>
+                    <CardMedia
+                    component="img"
+                    alt="Contemplative Reptile"
+                    height="200"
+                    image={photoUrl ? photoUrl : defaultAvatar}
+                    title="Contemplative Reptile"
+                    />
+                    <CardContent>
+                    <Typography variant="h5" component="h2">
+                        {name}
+                    </Typography>
+                    <Typography gutterBottom component="p">
+                        Web Developer
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        {bio}
+                    </Typography>
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+        </Link>
+    );
+}
+
+export default StudentPreview;
+
+{/* <div style={{
             border: 'solid 1px red',
             width: '200px'
             }}>
@@ -19,9 +68,4 @@ const StudentPreview = ({ id, name, email, bio, github, skills, site}) => {
                 <p>{site}</p>
                 <p>{skills}</p>
                 <p>{bio}</p>
-            </div>
-        </Link>
-    );
-}
-
-export default StudentPreview;
+            </div> */}
