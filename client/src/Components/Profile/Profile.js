@@ -82,6 +82,7 @@ const Profile = () => {
 
   const handleClose = () => {
     setOpen(false)
+    history.push("/")
   }
 
   return (
