@@ -12,8 +12,8 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
     root: {
       maxWidth: 345,
-      minHeight: 350
-      // maxHeight: 345
+      minHeight: 350,
+      maxHeight: 400
     },
     link: {
         textDecoration: "none"
@@ -35,19 +35,19 @@ const StudentPreview = ({ id, name, email, bio, github, skills, site, photoUrl})
                     <CardMedia
                     component="img"
                     alt="Contemplative Reptile"
-                    height="200"
+                    height="300"
                     image={photoUrl ? photoUrl : defaultAvatar}
                     title="Contemplative Reptile"
                     />
                     <CardContent>
                     <Typography variant="h5" component="h2">
-                        {name}
+                        { name }
                     </Typography>
                     <Typography gutterBottom component="p">
                         Web Developer
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        {bio}
+                        { bio }
                     </Typography>
                     </CardContent>
                 </CardActionArea>
@@ -57,15 +57,3 @@ const StudentPreview = ({ id, name, email, bio, github, skills, site, photoUrl})
 }
 
 export default StudentPreview;
-
-{/* <div style={{
-            border: 'solid 1px red',
-            width: '200px'
-            }}>
-                <h1>{name}</h1>
-                <p>{email}</p>
-                <p>{github}</p>
-                <p>{site}</p>
-                <p>{skills}</p>
-                <p>{bio}</p>
-            </div> */}

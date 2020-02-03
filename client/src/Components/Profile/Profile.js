@@ -53,7 +53,6 @@ const Profile = () => {
           bio: currentUser.bio ? currentUser.bio : "",
           personalSite: currentUser.personalSite ? currentUser.personalSite : "",
           linkedIn: currentUser.linkedIn ? currentUser.linkedIn : ""
-          // photoUrl: currentUser.photoUrl ? currentUser.photoUrl : ""
         })
       data && setId(_id)
       data && setPhotoUrl(photoUrlFromData)
