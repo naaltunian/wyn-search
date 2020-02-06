@@ -6,4 +6,4 @@ Wyn Search is a full-stack application being made for Wyncode that functions as 
 Wyn Search was created with Node, Apollo GraphQL, React, and MongoDB.
 
 ## Installation
-Run `npm install` in the root and client directories. Run `npm run dev` to spin up the front and backend servers. The application requires the user to set an environment file with a mongoURI and an AWS S3 bucket and associated keys to run.
+Run `npm install` in the root and client directories. Run `npm run dev` to spin up the front and backend servers. The application requires the user to set an environment file with a mongoURI, JWT secret, and an AWS S3 bucket and associated keys to run.
